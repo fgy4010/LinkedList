@@ -1,0 +1,162 @@
+# implement the singly linked list
+/*
+ * Class Node
+ * 
+ */
+public class Node {
+    Object data;//data
+    Node next;//points to next
+}
+
+//func.
+public interface LinKed {
+
+  public Node get(int p);
+
+  public void Insert(int p, Object data);
+
+  public void delete(int p);
+
+  public void clean();
+
+  public int size();
+
+}
+
+public class SingleLinked implements LinKed {
+    private Node head;// head node
+    private int length;// length of list
+    
+    /*
+     * initialization
+     */
+    public SingleLinked() {
+        head = null;
+        length = 0;
+    }
+
+    /*
+     * clear
+     */
+    public void clean() {
+        head = null;
+        length = 0;
+    }
+
+    /*
+     * get the p-th node
+     */
+    public Node get(int p) {
+        Node current = head;
+        if (p > 0 && p <= length) {
+            for (int i = 0; i < p - 1; i++) {
+                current = current.next;
+            }
+            return current;
+        }
+        return null;
+
+    }
+
+    /*
+     * insert head node
+     */
+    public void headInsert(Object data) {
+        Node n = new Node();
+        n.data = data;
+        n.next = head;
+        head = n;
+        length++;
+
+    }
+
+    /*
+     * insert p-th node 
+     */
+    public void Insert(int p, Object data) {
+        Node current = head;
+        Node n = new Node();
+        n.data = data;
+        if (p > 0 && p <= length + 1) {
+
+            for (int i = 0; i < p - 2; i++) {
+
+                current = current.next;
+            }
+
+            n.next = current.next;
+            current.next = n;
+            length++;
+
+        }
+
+    }
+
+    /*
+     * delete p-th node 
+     */
+    public void delete(int p) {
+        Node current = head;
+
+        // 0 to (p - 1)th node
+        if (p > 0 && p <= length) {
+            if (p == 1) {// if the node is head node 
+                head = current.next;
+                length--;
+                return;
+            } else {
+                for (int i = 1; i <= p; i++) {
+
+                    if (i == p - 1) {
+                        current.next = current.next.next;
+                        length--;
+                    } else {
+                        current = current.next;
+                    }
+
+                }
+            }
+
+        }
+    }
+
+    /*
+     * print list
+     */
+    public void print() {
+        Node current = head;
+        for (int i = 0; i < length; i++) {
+            System.out.print(current.data + "-->");
+            current = current.next;
+        }
+        System.out.println();
+    }
+
+    @Override
+    public int size() {
+
+        return this.length;
+    }
+
+}
+
+public class Test {
+
+    public static void main(String[] args) {
+        SingleLinked sl = new SingleLinked();
+        sl.headInsert("a1");
+        sl.headInsert("a2");
+        sl.headInsert("a3");
+        sl.headInsert("a4");
+        sl.print();
+        sl.delete(4);
+        sl.print();
+        System.out.println(sl.get(3).data);
+        sl.Insert(4, "a5");
+        sl.print();
+        sl.Insert(2, "a6");
+        sl.print();
+
+    }
+
+}

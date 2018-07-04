@@ -55,7 +55,6 @@ public class SingleLinked implements LinKed {
             return current;
         }
         return null;
-
     }
 
     /*
@@ -113,7 +112,6 @@ public class SingleLinked implements LinKed {
                     } else {
                         current = current.next;
                     }
-
                 }
             }
 
